@@ -27,13 +27,25 @@
       information for the donor
       
 */
+//The variable below sets up the initial donation total to zero.
 var donationTotal = 0;
 donors.forEach(calcSum);
-
+//The code below begins to create the table summary where it will tell us the total number of donators and money donated.
 var summaryTable = "<table><tr><th>Donors</th><td>" + donors.length + "</td></tr><tr><th>Total Donations</th><td>$" + donationTotal.toLocaleString() + "</td></tr></table>";
-
-document.getElementById("donationSummary")
-
+//The code below takes the small table we just made and inputs it into the html file where there is the ID "donationSummary".
+document.getElementById("donationSummary").innerHTML = summaryTable;
+//The code below take our array and filters out all donators who donated at least $1,000 and places then into a new array.
+var majorDonors = donors.filter(findMajorDonors);
+//The code below takes the newly made array and sorts them in descending order.
+majorDonors.sort(donorSortDescending);
+//The code below begins to create the table for our array itmes.
+var donorTable = "<table><caption>Major Donors</caption><tr><th>Donation</th><th>Donor ID</th><th>Date</th><th>Name</th><th>Adress</th><th>Phone</th><th>E-mail</th><tr>";
+//The code below takes evert item in teh array and uses the writeDownRow function to write each item into the table. 
+majorDonors.forEach(writeDonorRow);
+//The code below closes the table
+donorTable += "</table>";
+//The code below takes the table we created and inputs into the html file.
+document.getElementById("donorTable").innerHTML = donorTable;
 
 
 
